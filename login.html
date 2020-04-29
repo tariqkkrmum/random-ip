@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>IP Random Generator</title>
+      <link rel="stylesheet" href="css/style.css">
+	  <script src="js/jquery.js"></script>
+	  <script src="js/crypto.js"></script>
+	  <script src="js/jquerysession.js" ></script>
+	  <script type="text/javascript" language="javascript" src="data/priorities.json"></script>
+   </head>
+   <body>
+	  <div class="error" id="error"></div>
+      <div class="wrapper fadeInDown">
+         <div id="formContent">
+            <!-- Tabs Titles -->
+            <h2 class="active"> Sign In </h2>
+            <!-- Icon -->
+            <div class="fadeIn first">
+               <img src="img/login.png" alt="User Icon" width="50"  height="50"/>
+            </div>
+            <!-- Login Form -->
+            <form method="POST" action="random.html">
+               <input type="text" id="loginid" class="fadeIn second" name="login" placeholder="login">
+               <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+               <input type="submit" id="login" class="fadeIn fourth login" value="Log In">
+            </form>
+         </div>
+      </div>
+      <script>
+         $(document).ready(function(){
+			$(document).on("submit", "form", function(e){			
+				var loginId = $("#loginid").val();
+				var password = $("#password").val();
+				var isLoginValid = false;
+				
+				if (loginId == null || loginId.trim() ==''|| password == null || password.trim() ==''){
+					isLoginValid =  false;
+				}else{
+					if (loginId == jsonObject.dataStore.priorities[0].userName){
+						if (password == decrypted(jsonObject.dataStore.priorities[0].password)){
+							setSession(loginId);
+							isLoginValid =  true;
+						}						
+					}
+					else if (loginId == jsonObject.dataStore.priorities[1].userName){
+						if (password == decrypted(jsonObject.dataStore.priorities[0].password)){
+							setSession(loginId);
+							isLoginValid = true;
+						}	
+					}				
+				}
+				if(!isLoginValid){
+					$("#error").html('<div class="alert"><span class="closebtn" >&times;</span>User name or password is incorrect.</div>'); 
+				}
+				return  isLoginValid;
+			});
+			
+			function encrypt(string) {
+				return CryptoJS.AES.encrypt(jsonObject.dataStore.priorities[1].userName, jsonObject.dataStore.salt);
+			}
+			function decrypted(argument) {
+				 var decrypted = CryptoJS.AES.decrypt(argument, jsonObject.dataStore.salt);
+				 return decrypted.toString(CryptoJS.enc.Utf8);
+			}
+			function setSession(username) {
+				/*Setting the session*/
+				$.session.set('username', username);
+				$.session.set('dateTime', new Date());
+			}
+			$(".error").click(function(){
+				$(".alert").remove();
+			});
+         });    
+      </script>
+      </div>
+   </body>
+</html>
+

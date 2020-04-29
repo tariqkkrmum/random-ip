@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>IP Random Generator</title>
+		  <link rel="stylesheet" href="css/style.css">
+		  <script src="js/jquery.js"></script>
+		  <script src="js/jquerysession.js" ></script>
+		  <script type="text/javascript" language="javascript" src="data/priorities.json"></script>
+         <script>
+            $(document).ready(function(){
+				if(typeof $.session.get('dateTime') === 'undefined' ||  $.session.get('dateTime') == null){
+					clearSession();
+					window.location.href = "login.html";
+				}
+			
+                $(".add-row").click(function(){              
+								
+					var now = new Date();
+					var then = new Date($.session.get('dateTime'));
+					var minsDiff = Math.floor((then.getTime() - now.getTime()) / 1000 / 60);
+					var hoursDiff = Math.floor(minsDiff / 60);
+					minsDiff = minsDiff % 60;
+				
+					//alert(hoursDiff + 'h and ' + minsDiff + 'm');
+								
+				/* Validating session.*/
+				if(Math.abs(minsDiff)> 1 && Math.abs(minsDiff)>2){
+					clearSession();
+					alert('session Expired');
+					window.location.href = "login.html";
+				}else{
+					$.session.set('dateTime', new Date());
+				}
+				
+					// Math.floor(Math.random() * (+max - +min)) + +min; 
+					var firstByte = Math.floor(Math.random()  * (+223 - +192)) + 192;
+					var secondByte = Math.floor(Math.random() * (+255 - +0)) + +0;
+					var thirdByte = Math.floor(Math.random()  * (+255 - +0)) + +0;
+					var fourthByte = Math.floor(Math.random() * (+255 - +0)) + +0;
+					var portNumber = Math.floor(Math.random() * (+65353 - +0)) + +0;
+            
+                    var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + firstByte + "." + secondByte + "." + thirdByte + "." + fourthByte + "</td><td>" 
+                    			+ portNumber + "</td></tr>";
+                    $('#orderTable > tbody:last-child').append(markup);
+                });
+				function clearSession() {
+					/*Setting the session*/
+					$.session.remove('username');
+					$.session.remove('dateTime');
+				}
+                // Find and remove selected table rows
+                $(".delete-row").click(function(){
+                    $("table tbody").find('input[name="record"]').each(function(){
+                    	if($(this).is(":checked")){
+                            $(this).parents("tr").remove();
+                        }
+                    });
+                });
+            });    
+         </script>	  
+   </head>
+   <body>
+   <div class="wrapper fadeInDown">
+  <div id="formContent">
+      <div class="pageTitle">
+         <div class="container">
+            <h2>Random IP generator</h2>
+            <p>A Class C network covers the IP address range of 192.0.0.0 – 223.255.255.255, with a subnet mask of 255.255.255.0</p>
+			<p>Registered Port : Port numbers can run from 0 to 65353.</p>
+         </div>
+      </div>
+      <div class="content-lg container">
+         <table class="tbl" id="orderTable">
+            <thead>
+               <tr>
+                  <th>Select</th>
+                  <th>IP Address</th>
+                  <th>Port Number</th>
+               </tr>
+            </thead>
+            <tbody>
+            </tbody>
+         </table>
+         			   <tr>
+			   <td><input type="button" class="delete-row fourth" value="Delete IP"> </td>
+			   <td><input type="button" class="add-row btn btn-default" value="Generator IP"> </td>
+			   </tr>
+		 
+		 </div>
+		 </div>
+      </div>
+   </body>
+</html>

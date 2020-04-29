@@ -1,0 +1,15 @@
+var jsonObject = {
+"dataStore": {
+    "salt": "21232f297a57a5a743894a0e4a801fc3",
+    "priorities": [
+        {
+            "userName": "admin",
+			"password": "U2FsdGVkX1+3rrmgM3IJXODOc0NW2FWkD6P0I7Dn87I="
+        },
+        {
+            "userName": "guest",
+			"password": "U2FsdGVkX18/hx1LRzwnoKxbtuR9IDiieILKvw+MAug="
+        }
+    ]
+}
+}
