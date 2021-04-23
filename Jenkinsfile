@@ -9,10 +9,13 @@ def common = load “common.groovy”
 pipeline {
   agent any
 
+  to0ls{
+  	jdk "JDK 1.8.0_241"
+  }
   stages {
     stage('Build') {
       steps {
-         common.delete();
+         common.delete()
         echo "********************* Build ***********************"
       }
     }
@@ -38,9 +41,4 @@ pipeline {
     }
 
   }
-}
-
-def initProperties(filename){
-    props = readProperties file: filename
-    println 'Properties passed in are ' + props
 }
