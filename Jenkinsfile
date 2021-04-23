@@ -13,9 +13,7 @@ pipeline{
 	stages{
 		stage('Initialize Pipeline'){
 			steps{
-				properties([
-					pipelineTriggers([[$class: "GitHubPushTrigger"]])
-				])
+
 				
 				echo "The application param is set to ${params.applicationName}"
 			}
