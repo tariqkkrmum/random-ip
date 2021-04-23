@@ -6,26 +6,22 @@ def props
 pipeline{
 	agent any
 	
-	tools{
-		jdk "JDK 1.8.0_241"
-	}
-	
-	stages{
-		stage('Initialize Pipeline'){
-			steps{
-
-				
-				echo "The application param is set to ${params.applicationName}"
-			}
-		}
-		
-		stage('Build Project'){
-			steps{
-				script{
-					gradle.configureGradle("Gradle 6.8.3")
-					gradle.build()
-				}
-			}
-		}
-	}
+    stages { 
+        stage ('Build') { 
+ 			echo "********************* Build ***********************"
+        }
+        stage ('Test') { 
+        	echo "********************* Test ***********************"
+        }
+        stage ('QA') { 
+        	echo "********************* QA ***********************"
+        }
+        stage ('Deploy') { 
+        	echo "********************* Deploy ***********************"
+        }
+        stage ('Monitor') { 
+ 			echo "********************* Monitor ***********************"
+        }
+ 
+    } 
 }
