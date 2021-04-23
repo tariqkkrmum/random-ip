@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def imageTag = "1.1.${env.BUILD_NUMBER}"
 def propertiesFileName = "pipelineResource.yaml"
 
