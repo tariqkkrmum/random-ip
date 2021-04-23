@@ -4,6 +4,7 @@ def imageTag = "1.1.${env.BUILD_NUMBER}"
 def propertiesFileName = "pipelineResource.yaml"
 
 def props
+def common = load “common.groovy”
 
 pipeline {
   agent any
@@ -11,7 +12,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-         initProperties(propertiesFileName)
+         common.delete();
         echo "********************* Build ***********************"
       }
     }
