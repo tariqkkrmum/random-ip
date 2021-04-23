@@ -9,13 +9,15 @@ def common = load “common.groovy”
 pipeline {
   agent any
 
-  to0ls{
+  tools{
   	jdk "JDK 1.8.0_241"
   }
   stages {
     stage('Build') {
       steps {
-         common.delete()
+      	script{
+         	common.delete()
+         }
         echo "********************* Build ***********************"
       }
     }
