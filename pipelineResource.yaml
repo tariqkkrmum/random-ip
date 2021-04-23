@@ -1,1 +1,7 @@
-
+applicationName: "TestApplication"
+versionNumber: "1.0.0-SNAPSHOT"
+pipelineOwnerEmail: "tariqkkr@gmail.com"
+onFailureEmail: "tariqkkr@gmail.com"
+gitRepoURL: "https://github.com/tariqkkrmum/random-ip.git"
+triggerDeploymentBranch: "master"
+gitRepoName: "random-ip"
